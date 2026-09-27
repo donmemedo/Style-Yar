@@ -1,0 +1,94 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Manrope", "Vazirmatn", ui-sans-serif, system-ui, sans-serif;
+  --font-fa: "Vazirmatn", "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --color-brand-50: #f2eaff;
+  --color-brand-100: #e2d0ff;
+  --color-brand-300: #b18cff;
+  --color-brand-500: #7c3aed;
+  --color-brand-600: #6423d8;
+  --color-brand-700: #4c14a8;
+  --color-neon: #22e4c6;
+  --color-flare: #ff3d8b;
+  --color-amberish: #ffb020;
+  --radius-4xl: 2rem;
+}
+
+:root {
+  --bg: #f4f5fa;
+  --bg-2: #ffffff;
+  --fg: #0d0d14;
+  --muted: #5d6070;
+  --line: rgba(13, 13, 20, 0.10);
+  --glass: rgba(255, 255, 255, 0.72);
+  --glow: rgba(124, 58, 237, 0.20);
+  color-scheme: light;
+}
+.dark {
+  --bg: #06060a;
+  --bg-2: #0d0d15;
+  --fg: #f4f4fa;
+  --muted: #9aa0b4;
+  --line: rgba(255, 255, 255, 0.10);
+  --glass: rgba(255, 255, 255, 0.055);
+  --glow: rgba(124, 58, 237, 0.42);
+  color-scheme: dark;
+}
+
+* { border-color: var(--line); }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+html[dir="rtl"] body { font-family: var(--font-fa); }
+
+@utility glass {
+  background: var(--glass);
+  backdrop-filter: blur(22px) saturate(160%);
+  border: 1px solid var(--line);
+}
+@utility muted { color: var(--muted); }
+@utility ink { color: var(--fg); }
+@utility surface { background: var(--bg-2); }
+
+.grad-text {
+  background: linear-gradient(100deg, var(--color-brand-500), var(--color-flare) 45%, var(--color-neon));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.grad-bg { background: linear-gradient(100deg, var(--color-brand-500), var(--color-flare) 55%, var(--color-neon)); }
+.ring-glow { box-shadow: 0 0 0 1px var(--line), 0 24px 70px -28px var(--glow); }
+
+.aurora { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.aurora span {
+  position: absolute; border-radius: 9999px; filter: blur(90px); opacity: .55;
+  animation: drift 22s ease-in-out infinite alternate;
+}
+.dark .aurora span { opacity: .42; }
+@keyframes drift {
+  from { transform: translate3d(0,0,0) scale(1); }
+  to   { transform: translate3d(6vw,-7vh,0) scale(1.28); }
+}
+@keyframes sweep { 0% { transform: translateY(-110%); } 100% { transform: translateY(210%); } }
+.scanline { animation: sweep 2.1s cubic-bezier(.4,0,.2,1) infinite; }
+@keyframes pulse-ring { 0% { transform: scale(.82); opacity: .8 } 100% { transform: scale(1.7); opacity: 0 } }
+.pulse-ring { animation: pulse-ring 2.6s ease-out infinite; }
+@keyframes shimmer { 100% { background-position: 200% 0; } }
+.skeleton {
+  background: linear-gradient(90deg, var(--glass) 25%, var(--line) 37%, var(--glass) 63%);
+  background-size: 200% 100%; animation: shimmer 1.4s linear infinite;
+}
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: var(--line); border-radius: 99px; }
+::selection { background: var(--color-brand-500); color: #fff; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+}

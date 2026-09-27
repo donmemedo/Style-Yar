@@ -1,0 +1,13 @@
+{
+  "name": "LookYab — لوک‌یاب",
+  "short_name": "LookYab",
+  "description": "Visual fashion search — snap it, find it, wear it.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#06060a",
+  "theme_color": "#7c3aed",
+  "orientation": "portrait",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
